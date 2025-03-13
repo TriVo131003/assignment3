@@ -19,7 +19,6 @@ class ExamResultService:
             .limit(limit)
             .all()
         )
-        print(top_students)
         return [
             {"sbd": sbd, "toan": toan, "vat_li": vat_li, "hoa_hoc": hoa_hoc, "total_score": total_score}
             for sbd, toan, vat_li, hoa_hoc, total_score in top_students
@@ -27,7 +26,34 @@ class ExamResultService:
 
     @staticmethod
     def get_exam_result(sbd):
-        return ExamResult.query.filter_by(sbd=sbd).first()
+        exam_result = ExamResult.query.filter_by(sbd=sbd).first()
+        if not exam_result:
+            return None
+
+        scores = [
+            exam_result.toan, exam_result.ngu_van, exam_result.ngoai_ngu,
+            exam_result.vat_li, exam_result.hoa_hoc, exam_result.sinh_hoc,
+            exam_result.lich_su, exam_result.dia_li, exam_result.gdcd
+        ]
+        
+        valid_scores = [score for score in scores if score is not None] 
+        
+        average_score = round(sum(valid_scores) / len(valid_scores), 2) if valid_scores else 0.0
+
+        return {
+            "sbd": exam_result.sbd,
+            "toan": exam_result.toan,
+            "ngu_van": exam_result.ngu_van,
+            "ngoai_ngu": exam_result.ngoai_ngu,
+            "vat_li": exam_result.vat_li,
+            "hoa_hoc": exam_result.hoa_hoc,
+            "sinh_hoc": exam_result.sinh_hoc,
+            "lich_su": exam_result.lich_su,
+            "dia_li": exam_result.dia_li,
+            "gdcd": exam_result.gdcd,
+            "ma_ngoai_ngu": exam_result.ma_ngoai_ngu,
+            "average_score": average_score 
+        }
 
     @staticmethod
     def get_score_statistics():

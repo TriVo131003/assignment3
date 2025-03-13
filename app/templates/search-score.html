@@ -39,11 +39,11 @@
             </form>
 
           {% if error %}
-          <div class="alert alert-danger mt-3">{{ error }}</div>
+          <div class="alert alert-danger mt-3" style="padding: 10px;">{{ error }}</div>
           {% endif %} {% if result %}
           <section>
             <h2>Detailed Scores for SBD: {{ result.sbd }}</h2>
-            <table class="score-table" style="margin-bottom: 10%;">
+            <table class="score-table">
               <thead>
                 <tr>
                   <th>Subject</th>

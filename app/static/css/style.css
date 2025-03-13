@@ -100,10 +100,8 @@ body {
 /* Content Area */
 .content {
   flex-grow: 1;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  padding: 20px;
+  overflow-y: auto;
 }
 
 .content section {
@@ -165,6 +163,7 @@ button.btn-secondary:hover {
 @media (max-width: 768px) {
   .main-container {
     flex-direction: column;
+    height: 100vh;
   }
 
   .sidebar {
@@ -177,6 +176,7 @@ button.btn-secondary:hover {
     display: flex;
     justify-content: center;
     gap: 1rem;
+    margin-bottom: 10px;
   }
 
   .content {
