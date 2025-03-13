@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>G-Scores</title>
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <h1>G-Scores</h1>
+      </header>
+      <div class="main-container">
+        <nav class="sidebar">
+          <h2><a href="/">Menu</a></h2>
+          <ul>
+            <li><a href="/search-score">Check Score</a></li>
+            <li><a href="/report">Score Report</a></li>
+            <li><a href="/leader-board">Top 10 Students</a></li>
+          </ul>
+        </nav>
+        <main class="content">
+          <h2>Score Statistics</h2>
+          <canvas id="scoreChart" width="400" height="200"></canvas>
+        </main>
+      </div>
+    </div>
+    <script>
+      // Example data (Replace with your dynamic data)
+      const subjects = [
+        "Math",
+        "Literature",
+        "Foreign Language",
+        "Physics",
+        "Chemistry",
+        "Biology",
+        "History",
+        "Geography",
+        "Ethics",
+      ];
+      const excellent = [10, 8, 12, 9, 7, 11, 6, 5, 4];
+      const good = [15, 14, 10, 13, 12, 10, 9, 8, 7];
+      const average = [8, 9, 5, 7, 8, 9, 10, 11, 12];
+      const weak = [4, 6, 7, 5, 8, 5, 6, 7, 9];
+
+      // Chart.js configuration
+      const ctx = document.getElementById("scoreChart").getContext("2d");
+      const scoreChart = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: subjects,
+          datasets: [
+            {
+              label: "Excellent",
+              backgroundColor: "rgba(75, 192, 192, 0.6)",
+              borderColor: "rgba(75, 192, 192, 1)",
+              borderWidth: 1,
+              data: excellent,
+            },
+            {
+              label: "Good",
+              backgroundColor: "rgba(54, 162, 235, 0.6)",
+              borderColor: "rgba(54, 162, 235, 1)",
+              borderWidth: 1,
+              data: good,
+            },
+            {
+              label: "Average",
+              backgroundColor: "rgba(255, 206, 86, 0.6)",
+              borderColor: "rgba(255, 206, 86, 1)",
+              borderWidth: 1,
+              data: average,
+            },
+            {
+              label: "Weak",
+              backgroundColor: "rgba(255, 99, 132, 0.6)",
+              borderColor: "rgba(255, 99, 132, 1)",
+              borderWidth: 1,
+              data: weak,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

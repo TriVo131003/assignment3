@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>G-Scores</title>
+    <link rel="stylesheet" href="../static/css/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <h1>G-Scores</h1>
+      </header>
+      <div class="main-container">
+        <nav class="sidebar">
+          <h2><a href="/">Menu</a></h2>
+          <ul>
+            <li><a href="/search-score">Check Score</a></li>
+            <li><a href="/report">Score Report</a></li>
+            <li><a href="/leader-board">Top 10 Students</a></li>
+          </ul>
+        </nav>
+        <main class="content">
+          <section class="registration">
+            <h2>Search Scores</h2>
+            <form method="GET" action="/search-score">
+              <label for="registration-number-search" class="form-label"
+                >Enter Registration Number:</label
+              >
+              <input
+                type="text"
+                id="registration-number-search"
+                name="sbd"
+                class="registration-number"
+                placeholder="Enter registration number"
+                required
+              />
+              <button type="submit" class="btn-secondary">Submit</button>
+            </form>
+
+          {% if error %}
+          <div class="alert alert-danger mt-3">{{ error }}</div>
+          {% endif %} {% if result %}
+          <section>
+            <h2>Detailed Scores for SBD: {{ result.sbd }}</h2>
+            <table class="score-table" style="margin-bottom: 10%;">
+              <thead>
+                <tr>
+                  <th>Subject</th>
+                  <th>Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Math</td>
+                  <td>{{ result.toan }}</td>
+                </tr>
+                <tr>
+                  <td>Literature</td>
+                  <td>{{ result.ngu_van }}</td>
+                </tr>
+                <tr>
+                  <td>Foreign Language</td>
+                  <td>{{ result.ngoai_ngu }} ({{ result.ma_ngoai_ngu }})</td>
+                </tr>
+                <tr>
+                  <td>Physics</td>
+                  <td>{{ result.vat_li }}</td>
+                </tr>
+                <tr>
+                  <td>Chemistry</td>
+                  <td>{{ result.hoa_hoc }}</td>
+                </tr>
+                <tr>
+                  <td>Biology</td>
+                  <td>{{ result.sinh_hoc }}</td>
+                </tr>
+                <tr>
+                  <td>History</td>
+                  <td>{{ result.lich_su }}</td>
+                </tr>
+                <tr>
+                  <td>Geography</td>
+                  <td>{{ result.dia_li }}</td>
+                </tr>
+                <tr>
+                  <td>Civic Education</td>
+                  <td>{{ result.gdcd }}</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td>Average Score</td>
+                  <td>{{ result.average_score }}</td>
+                </tr>
+              </tfoot>
+            </table>
+          </section>
+          {% endif %}
+        </main>
+      </div>
+    </div>
+      </div>
+    </div>
+  </body>
+</html>

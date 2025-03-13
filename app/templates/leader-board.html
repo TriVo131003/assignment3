@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Top 10 Students - G-Scores</title>
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <h1>Top 10 Students - Group A</h1>
+      </header>
+      <div class="main-container">
+        <nav class="sidebar">
+          <h2><a href="/">Menu</a></h2>
+          <ul>
+            <li><a href="/search-score">Check Score</a></li>
+            <li><a href="/report">Score Report</a></li>
+            <li><a href="/leader-board">Top 10 Students</a></li>
+          </ul>
+        </nav>
+        <main class="content">
+          <section class="leaderboard">
+            <h2>Top 10 Students (Math, Physics, Chemistry)</h2>
+            <table class="score-table">
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>SBD</th>
+                  <th>Math</th>
+                  <th>Physics</th>
+                  <th>Chemistry</th>
+                  <th>Total Score</th>
+                </tr>
+              </thead>
+              <tbody id="leaderboard-body"></tbody>
+            </table>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <script>
+      $(document).ready(function () {
+        $.getJSON("/leader-board?format=json", function (data) {
+          let rows = "";
+          data.forEach((student, index) => {
+            rows += `
+              <tr>
+                <td>${index + 1}</td>
+                <td>${student.sbd}</td>
+                <td>${student.toan}</td>
+                <td>${student.vat_li}</td>
+                <td>${student.hoa_hoc}</td>
+                <td>${student.total_score}</td>
+              </tr>`;
+          });
+          $("#leaderboard-body").html(rows);
+        }).fail(function () {
+          alert("Failed to load leaderboard data. Please try again later.");
+        });
+      });
+    </script>
+  </body>
+</html>
