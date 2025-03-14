@@ -6,20 +6,22 @@ git clone https://github.com/TriVo131003/assignment3.git
 
 - Environment variables
 
-you can change database_url in config.py and docker-compose.yml
+you can update database_url in both config.py and docker-compose.yml
 
-- Running project
+- Running the project
 
 docker-compose up --build
 
-- Running seeder.py
+- Seeder
 
-docker exec -it python_intern python seeder.py
+The application automatically loads data. However, if data already exists in the ExamResult model, the seeder will not function.
 
-- View web
-
-http://localhost:5000/
+- Viewing the web: http://localhost:5000/
 
 - Stopping project
 
 docker-compose down
+
+- Demo link
+
+- Deployment site: https://assignment3-gxu1.onrender.com/
