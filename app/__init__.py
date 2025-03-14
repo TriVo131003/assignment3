@@ -12,7 +12,7 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
 
-    redis_client = redis.StrictRedis.from_url(Config.REDIS_URL, decode_responses=True, ssl=True)
+    redis_client = redis.StrictRedis.from_url(Config.REDIS_URL, decode_responses=True)
 
     db.init_app(app)
 
