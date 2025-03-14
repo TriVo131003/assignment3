@@ -10,7 +10,7 @@ you can change database_url in config.py and docker-compose.yml
 
 - Running project
 
-docker-compose up
+docker-compose up --build
 
 - Running seeder.py
 
