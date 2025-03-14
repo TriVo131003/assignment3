@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>G-Scores</title>
+    <title>Score Report</title>
     <link rel="stylesheet" href="../static/css/style.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
@@ -23,70 +23,38 @@
         </nav>
         <main class="content">
           <h2>Score Statistics</h2>
-          <canvas id="scoreChart" width="400" height="200"></canvas>
+          <canvas id="scoreChart"></canvas>
         </main>
       </div>
     </div>
-    <script>
-      // Example data (Replace with your dynamic data)
-      const subjects = [
-        "Math",
-        "Literature",
-        "Foreign Language",
-        "Physics",
-        "Chemistry",
-        "Biology",
-        "History",
-        "Geography",
-        "Ethics",
-      ];
-      const excellent = [10, 8, 12, 9, 7, 11, 6, 5, 4];
-      const good = [15, 14, 10, 13, 12, 10, 9, 8, 7];
-      const average = [8, 9, 5, 7, 8, 9, 10, 11, 12];
-      const weak = [4, 6, 7, 5, 8, 5, 6, 7, 9];
 
-      // Chart.js configuration
+    <script>
+      const scoreData = {{ score_data|tojson }};
+
+      const subjects = Object.keys(scoreData);
+      const levels = ["Excellent", "Good", "Average", "Weak"];
+      const datasets = levels.map((level, index) => ({
+        label: level,
+        data: subjects.map((subject) => scoreData[subject][level]),
+        backgroundColor: ["#4caf50", "#2196f3", "#ffc107", "#f44336"][index],
+      }));
+
       const ctx = document.getElementById("scoreChart").getContext("2d");
-      const scoreChart = new Chart(ctx, {
+      new Chart(ctx, {
         type: "bar",
         data: {
           labels: subjects,
-          datasets: [
-            {
-              label: "Excellent",
-              backgroundColor: "rgba(75, 192, 192, 0.6)",
-              borderColor: "rgba(75, 192, 192, 1)",
-              borderWidth: 1,
-              data: excellent,
-            },
-            {
-              label: "Good",
-              backgroundColor: "rgba(54, 162, 235, 0.6)",
-              borderColor: "rgba(54, 162, 235, 1)",
-              borderWidth: 1,
-              data: good,
-            },
-            {
-              label: "Average",
-              backgroundColor: "rgba(255, 206, 86, 0.6)",
-              borderColor: "rgba(255, 206, 86, 1)",
-              borderWidth: 1,
-              data: average,
-            },
-            {
-              label: "Weak",
-              backgroundColor: "rgba(255, 99, 132, 0.6)",
-              borderColor: "rgba(255, 99, 132, 1)",
-              borderWidth: 1,
-              data: weak,
-            },
-          ],
+          datasets: datasets,
         },
         options: {
           responsive: true,
           scales: {
-            y: {
-              beginAtZero: true,
+            x: { stacked: true },
+            y: { stacked: true },
+          },
+          plugins: {
+            legend: {
+              position: "top",
             },
           },
         },

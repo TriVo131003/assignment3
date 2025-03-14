@@ -9,25 +9,29 @@ main_bp = Blueprint('main', __name__)
 def index():
     return render_template('index.html')
 
-@main_bp.route('/leader-board')
+@main_bp.route('/leader-board', methods=['GET'])
 def leaderboard():
     results = ExamResultService.get_top_students()
     if request.args.get("format") == "json":
         return jsonify(results)
     return render_template("leader-board.html", results=results)
 
-@main_bp.route('/search-score', methods=['GET', 'POST'])
+@main_bp.route('/search-score', methods=['POST', 'GET'])
 def check_score():
-    sbd = request.values.get('sbd')  
-    result = ExamResultService.get_exam_result(sbd) if sbd else None
-    error = "No results found for the given registration number." if sbd and not result else None
-    
-    if request.method == 'POST' and not sbd:
+    sbd = request.form.get('sbd') if request.method == 'POST' else request.args.get('sbd')
+    error = None
+    result = None
+
+    if sbd:
+        result = ExamResultService.get_exam_result(sbd)
+        if not result:
+            error = "No results found."
+    elif request.method == 'POST':
         error = "Please provide a valid registration number."
-    
+
     return render_template('search-score.html', result=result, error=error)
 
-@main_bp.route('/report')
+@main_bp.route('/report', methods=['GET'])
 def score_statistics():
     score_data = ExamResultService.get_score_statistics()
     return render_template('report.html', score_data=score_data)

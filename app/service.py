@@ -69,11 +69,11 @@ class ExamResultService:
                          (getattr(ExamResult, subject) >= 4, "Average"),
                          else_="Weak").label("score_category")
                 )
+                .filter(getattr(ExamResult, subject) != None)
                 .group_by("score_category")
                 .all()
             )
 
             for total, category in query:
                 score_data[subject][category] = total
-        
         return score_data
