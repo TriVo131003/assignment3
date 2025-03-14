@@ -22,6 +22,8 @@ The application automatically loads data. However, if data already exists in the
 
 docker-compose down
 
-- Demo link
+- Demo link: https://drive.google.com/file/d/1zE404dSMKZNA6RXbYxiJaMMdQ8tF3RM5/view?usp=sharing
 
 - Deployment site: https://assignment3-gxu1.onrender.com/
+
+"Your free instance will spin down with inactivity, which can delay requests by 50 seconds or more".
