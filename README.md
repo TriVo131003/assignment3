@@ -12,14 +12,14 @@ you can change database_url in config.py and docker-compose.yml
 
 docker-compose up
 
--- Running seeder.py
+- Running seeder.py
 
 docker exec -it python_intern python seeder.py
 
--- View web
+- View web
 
 http://localhost:5000/
 
--- Stopping project
+- Stopping project
 
 docker-compose down

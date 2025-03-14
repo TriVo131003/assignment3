@@ -2,7 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from config import Config
 import redis
-
+from app.thread import background_task
 db = SQLAlchemy()
 redis_client = None 
 
@@ -21,5 +21,7 @@ def create_app():
         app.register_blueprint(main_bp)
 
         db.create_all()
+
+        background_task.start(app)
 
     return app
